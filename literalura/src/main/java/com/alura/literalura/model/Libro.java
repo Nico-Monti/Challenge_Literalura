@@ -23,20 +23,19 @@ public class Libro {
     public Libro(){}
 
     public Libro(DatosLibro datosLibro) {
-
         this.titulo = datosLibro.titulo();
-
-        // Inicializamos la lista de autores
+        this.descargas = datosLibro.descargas();
 
         datosLibro.autorEs().forEach(d -> {
-            Autor autorEntidad = new Autor(d); // Asume que tienes un constructor en Autor que recibe DatosAutor
-            autorEntidad.setLibro(this); // Importante para mantener la relación bidireccional si existe
+            Autor autorEntidad = new Autor(d);
+            autorEntidad.setLibro(this);
             this.autor =autorEntidad;
         });
-        this.descargas = datosLibro.descargas();
+
+        if (datosLibro.idiomas() != null) {
+            this.idioma = Idioma.fromString(datosLibro.idiomas().get(0));
+        }
     }
-
-
 
     public String getTitulo() {
         return titulo;
@@ -45,7 +44,6 @@ public class Libro {
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
-
 
     public Idioma getIdioma() {
         return idioma;

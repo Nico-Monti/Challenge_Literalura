@@ -3,9 +3,9 @@ package com.alura.literalura.model;
 import com.alura.literalura.dto.DatosAutor;
 import jakarta.persistence.*;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name ="autores")
@@ -28,6 +28,17 @@ public class Autor {
 
     }
 
+    @Override
+    public String toString() {
+        return "---------------------"+ "\n" +
+                "Autor: " + nombre + "\n" +
+                "Fecha de nacimiento: " + fechaNacimiento + "\n" +
+                "Fecha de deceso: " + fechaDeceso + "\n" +
+                "Libros: " + libros.stream().map(l -> l.getTitulo())
+                .collect(Collectors.joining(", "))
+                +"\n"+
+                "--------------------";
+    }
 
     public void setLibro(Libro libro) {
         libros.add(libro);
